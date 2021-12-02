@@ -376,17 +376,38 @@ local function init_baserules(on_load)
 
     assert(get_baserules, "Failed to load "..script_path().."/basedconfig/baserules.lua. Check that the file exists and doesn't have any lua syntax errors.")
 
-    local mod_config, global_sents, level_sents = get_baserules()
+    local mod_config, global_sents, level_sents, persist_sents = get_baserules()
+    mod_config = mod_config or {}
+    global_sents = global_sents or {}
+    level_sents = level_sents or {}
+    persist_sents = persist_sents or {}
 
-    local sents = global_sents
-    if level_sents[generaldata.strings[LEVELNAME]] then
-        sents = level_sents[generaldata.strings[LEVELNAME]]
-    end
-    if level_sents[generaldata.strings[CURRLEVEL]] then
-        sents = level_sents[generaldata.strings[CURRLEVEL]]
+    local final_sents = {}
+    if global_sents then
+        for text_name, sentences in pairs(global_sents) do
+            final_sents[text_name] = sentences
+        end
     end
 
-    final_baserules, invalid_sents = convert_baserule_sets(sents)
+    if persist_sents then
+        final_sents["@always"] = persist_sents
+    end
+
+    if level_sents then
+        local level_sentences = nil
+        if level_sents[generaldata.strings[LEVELNAME]] then
+            level_sentences = level_sents[generaldata.strings[LEVELNAME]]
+        elseif level_sents[generaldata.strings[CURRLEVEL]] then
+            level_sentences = level_sents[generaldata.strings[CURRLEVEL]]
+        end
+        if level_sentences then
+            for text_name, sentences in pairs(level_sentences) do
+                final_sents[text_name] = sentences
+            end
+        end
+    end
+
+    final_baserules, invalid_sents = convert_baserule_sets(final_sents)
 
     if mod_config.report_invalid_sentences and #invalid_sents > 0 and not on_load then
         local err_str = "[Based Mod] Found invalid sentences. These will be excluded from baserules:"
@@ -402,13 +423,12 @@ end
     - we need to init_baserules here because when just starting a level with baserules, "level_start" is called after code()
     - we set on_load = true to avoid the error message on levelpack load
  ]]
- init_baserules(true)
+init_baserules(true)
 
 
 local on_level_restart = false
 table.insert(mod_hook_functions["level_start"], 
     function()
-        print("level_start")
         if not on_level_restart then
             init_baserules()
         end
@@ -418,20 +438,38 @@ table.insert(mod_hook_functions["level_start"],
 )
 table.insert(mod_hook_functions["level_restart"], 
     function()
-        print("level_restart")
         on_level_restart = true
         init_baserules()
     end
 )
 
+table.insert(mod_hook_functions["rule_baserules"], 
+    function()
+        if final_baserules["@always"] then
+            for _, rule in ipairs(final_baserules["@always"]) do
+                addoption(
+                    deep_copy_table(rule[1]),
+                    deep_copy_table(rule[2]),
+                    {},
+                    false,
+                    nil,
+                    {"base"},
+                    true
+                )
+            end 
+        end
+    end
+)
+
 local old_docode = docode
 function docode(firstwords,wordunits)
+    print("running docode")
     local ret = old_docode(firstwords,wordunits)
 
     local baserules = final_baserules
 
     for textname, rules in pairs(baserules) do
-        if hasfeature("level", "is", textname, 1) then
+        if textname ~= "@always" and hasfeature("level", "is", textname, 1) then
             for _, rule in ipairs(rules) do
                 addoption(
                     deep_copy_table(rule[1]),

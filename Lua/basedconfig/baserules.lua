@@ -38,6 +38,12 @@ local global_baserules = {
 }
 
 --[[ 
+    persist_baserules are always applied in every level in the levelpack. Just put in your list of sentences below.
+ ]]
+local persist_baserules = {
+}
+
+--[[ 
     level baserules are baserules that only apply to specific levels in your levelpack.
     The format for each entry is:
         [<level name>] = {
@@ -75,4 +81,4 @@ local level_baserules = {
 }
 
 -- Ignore this last part. It's needed to load all the baserules into the mod
-return mod_config, global_baserules, level_baserules
+return mod_config, global_baserules, level_baserules, persist_baserules
