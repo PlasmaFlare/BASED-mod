@@ -21,3 +21,10 @@ It's pretty simple:
 4) Make sure `Text Type` is either "Baba" or "You"
 5) Make sure clicking `Change Type...` has "text" as the value
 6) And that's it! Feel free to customize the other options as well, but they're not needed for this mod.
+
+
+## Changelog
+- v1.1 (2/6/22)
+  - Fixed "X make Y" as a baserule not working after level restart
+  - Updated error message shown if `baserules.lua` has a syntax error
+  - Updated presentation/documentation of `baserules.lua`

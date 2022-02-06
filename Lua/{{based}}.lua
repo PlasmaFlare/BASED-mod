@@ -458,7 +458,6 @@ table.insert(mod_hook_functions["rule_baserules"],
 
 local old_docode = docode
 function docode(firstwords,wordunits)
-    print("running docode")
     local ret = old_docode(firstwords,wordunits)
 
     local baserules = final_baserules
