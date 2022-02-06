@@ -426,19 +426,8 @@ end
 init_baserules(true)
 
 
-local on_level_restart = false
 table.insert(mod_hook_functions["level_start"], 
     function()
-        if not on_level_restart then
-            init_baserules()
-        end
-
-        on_level_restart = false
-    end
-)
-table.insert(mod_hook_functions["level_restart"], 
-    function()
-        on_level_restart = true
         init_baserules()
     end
 )
@@ -486,6 +475,8 @@ function docode(firstwords,wordunits)
 
     return ret
 end
+
+PLASMA_BASED_MOD_INITIALIZED = true
 
 
 -- TESTING AREA
