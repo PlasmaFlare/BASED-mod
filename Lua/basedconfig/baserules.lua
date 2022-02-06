@@ -5,9 +5,26 @@ local mod_config = {
     report_invalid_sentences = true,
 }
 
+--[[ 
+    persist_baserules are always applied in every level in the levelpack. Just put in your list of sentences below.
+    Example:
+    local persist_baserules = {
+        "baba is keke",
+        "keke make me",
+        "me is blue and pink",
+    }
+ ]]
+local persist_baserules = {
+}
+
+
+
+
 --[[
-    You can have as many entries in global baserules as you want.
-    The format for each entry in baserulesets is:
+    levelpack_baserules are just like persist_baserules where every sentence is applied to every level in the levelpack.
+    However, each "set" of sentences is applied only when the game detects the rule "level is X", where X can be any string you want.
+
+    The format for each entry in levelpack_baserules is:
         <text block name> = {
             <sentence 1>,
             <sentence 2>,
@@ -20,7 +37,7 @@ local mod_config = {
 
     The below example will apply "baba is sleep and pet" and "level is pink" when "level is lovebaba" is formed. A similar thing happens when you form "level is poem"
 
-        local global_baserules = {
+        local levelpack_baserules = {
             lovebaba = {
                 "baba is sleep and pet",
                 "all near baba is love",
@@ -34,14 +51,11 @@ local mod_config = {
             },
         }
  ]]
-local global_baserules = {
+local levelpack_baserules = {
 }
 
---[[ 
-    persist_baserules are always applied in every level in the levelpack. Just put in your list of sentences below.
- ]]
-local persist_baserules = {
-}
+
+
 
 --[[ 
     level baserules are baserules that only apply to specific levels in your levelpack.
@@ -81,4 +95,4 @@ local level_baserules = {
 }
 
 -- Ignore this last part. It's needed to load all the baserules into the mod
-return mod_config, global_baserules, level_baserules, persist_baserules
+return mod_config, levelpack_baserules, level_baserules, persist_baserules
