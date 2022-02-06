@@ -13,10 +13,15 @@ local mod_config = {
         "keke make me",
         "me is blue and pink",
     }
+
+    NOTE: There is a bug where adding group-related rules as persist baserule doesn't work without having at least one text object in the level.
+    The fix would require some lua function overriding in rules.lua, which I don't want to do for compatability reasons. There might be other rules that also have this
+    problem. So to be on the safe side, make sure you have at least one text object in you level.
  ]]
 local persist_baserules = {
+    "baba is group",
+    "group is keke",
 }
-
 
 
 
