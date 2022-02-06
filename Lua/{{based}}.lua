@@ -372,9 +372,15 @@ local function init_baserules(on_load)
     local invalid_sents = {}
 
     -- Use loadfile() instead of require() since require() does not reload the module if it already exists 
-    local get_baserules = loadfile(script_path().."/basedconfig/baserules.lua")
+    local get_baserules, err = loadfile(script_path().."/basedconfig/baserules.lua")
 
-    assert(get_baserules, "Failed to load "..script_path().."/basedconfig/baserules.lua. Check that the file exists and doesn't have any lua syntax errors.")
+    if err ~= nil then
+        if on_load then
+            error("[BASED MOD] Loading baserules.lua returned the error below. Please resolve the error and reload the levelpack to load baserules. \n\nError:\n"..err)
+        else
+            error("[BASED MOD] Loading baserules.lua returned the error below. Please resolve the error and restart the level to load baserules. \n\nError:\n"..err)
+        end
+    end
 
     local mod_config, global_sents, level_sents, persist_sents = get_baserules()
     mod_config = mod_config or {}
