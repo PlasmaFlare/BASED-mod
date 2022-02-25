@@ -3,6 +3,11 @@ local mod_config = {
     -- Displays a lua error message on level start, showing which sentences in baserules.lua were invalid.
     -- You can disable this if you want to avoid all the excess error messages. But invalid sentences will still be ignored.
     report_invalid_sentences = true,
+
+    -- When set to true, this disables the game from automatically inserting "text is push", "level is stop", and "cursor is select" as baserules.
+    -- Note that this affects the levelpack as a whole, and cannot be configured per level. If you want some levels to have the above rules,
+    -- configure "level_baserules" at the bottom of this file.
+    disable_normal_baserules = false,
 }
 
 --[[ 
@@ -19,8 +24,6 @@ local mod_config = {
     problem. So to be on the safe side, make sure you have at least one text object in you level.
  ]]
 local persist_baserules = {
-    "baba is group",
-    "group is keke",
 }
 
 
