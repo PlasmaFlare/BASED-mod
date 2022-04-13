@@ -1,4 +1,4 @@
-local version = "1.3"
+local version = "1.4"
 timedmessage(string.format("You are using the $0,2($0,3($2,2B$2,4A$5,4S$4,4E$3,0D$0,3)$0,2)$0,3 mod v%s!", version))
 
 -- Get this lua file's script path to be able to use loadfile()
@@ -445,6 +445,9 @@ local function init_baserules(on_load)
     if not mod_config.disable_normal_baserules then
         setupbaserules()
     end
+
+    updatecode = 1
+    code()
 end
 
 --[[ 
@@ -452,7 +455,7 @@ end
     - we need to init_baserules here because when just starting a level with baserules, "level_start" is called after code()
     - we set on_load = true to avoid the error message on levelpack load
  ]]
-init_baserules(true)
+-- init_baserules(true)
 
 
 table.insert(mod_hook_functions["level_start"], 
@@ -507,6 +510,18 @@ function docode(firstwords,wordunits)
             end 
         end
     end
+
+    for _, rule in ipairs(baserules["@always"]) do
+        addoption(
+            deep_copy_table(rule[1]),
+            deep_copy_table(rule[2]),
+            {},
+            false,
+            nil,
+            {"base"},
+            true
+        )
+    end 
 
     return ret
 end
