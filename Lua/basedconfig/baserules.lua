@@ -24,6 +24,7 @@ local mod_config = {
     problem. So to be on the safe side, make sure you have at least one text object in you level.
  ]]
 local persist_baserules = {
+    "me is yellow"
 }
 
 

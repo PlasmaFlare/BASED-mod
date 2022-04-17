@@ -24,6 +24,8 @@ It's pretty simple:
 
 
 ## Changelog
+- v1.4 (4/13/22)
+  - Fixed baserules not updating after level restart
 - v1.3 (4/6/22)
   - Fixed custom power/powered and group baserules not working (Ex: baba is power123)
 - v1.2 (2/24/22)
