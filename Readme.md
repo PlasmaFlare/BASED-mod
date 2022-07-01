@@ -24,6 +24,8 @@ It's pretty simple:
 
 
 ## Changelog
+- v1.5 (7/1/22)
+  - Fixed BASED mod not working with metatext mod
 - v1.4 (4/13/22)
   - Fixed baserules not updating after level restart
 - v1.3 (4/6/22)
