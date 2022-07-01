@@ -1,4 +1,4 @@
-local version = "1.4"
+local version = "1.5"
 timedmessage(string.format("You are using the $0,2($0,3($2,2B$2,4A$5,4S$4,4E$3,0D$0,3)$0,2)$0,3 mod v%s!", version))
 
 -- Get this lua file's script path to be able to use loadfile()
@@ -490,8 +490,8 @@ table.insert(mod_hook_functions["rule_baserules"],
 )
 
 local old_docode = docode
-function docode(firstwords,wordunits)
-    local ret = old_docode(firstwords,wordunits)
+function docode(firstwords)
+    local ret = old_docode(firstwords)
 
     local baserules = final_baserules
 
@@ -504,8 +504,7 @@ function docode(firstwords,wordunits)
                     {},
                     false,
                     nil,
-                    {"base"},
-                    true
+                    {"base"}
                 )
             end 
         end
@@ -519,8 +518,7 @@ function docode(firstwords,wordunits)
                 {},
                 false,
                 nil,
-                {"base"},
-                true
+                {"base"}
             )
         end 
     end
