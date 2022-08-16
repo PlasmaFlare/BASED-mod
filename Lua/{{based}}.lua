@@ -471,24 +471,6 @@ table.insert(mod_hook_functions["level_restart"],
     end
 )
 
-table.insert(mod_hook_functions["rule_baserules"], 
-    function()
-        if final_baserules["@always"] then
-            for _, rule in ipairs(final_baserules["@always"]) do
-                addoption(
-                    deep_copy_table(rule[1]),
-                    deep_copy_table(rule[2]),
-                    {},
-                    false,
-                    nil,
-                    {"base"},
-                    true
-                )
-            end 
-        end
-    end
-)
-
 local old_docode = docode
 function docode(firstwords)
     local ret = old_docode(firstwords)
