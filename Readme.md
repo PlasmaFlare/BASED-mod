@@ -24,6 +24,8 @@ It's pretty simple:
 
 
 ## Changelog
+- v1.6 (8/15/22)
+  - Fixed baserules stacking twice from one baserule 
 - v1.5 (7/1/22)
   - Fixed BASED mod not working with metatext mod
 - v1.4 (4/13/22)

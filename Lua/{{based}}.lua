@@ -1,4 +1,4 @@
-local version = "1.5"
+local version = "1.6"
 timedmessage(string.format("You are using the $0,2($0,3($2,2B$2,4A$5,4S$4,4E$3,0D$0,3)$0,2)$0,3 mod v%s!", version))
 
 -- Get this lua file's script path to be able to use loadfile()
