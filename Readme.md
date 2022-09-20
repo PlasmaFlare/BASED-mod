@@ -24,6 +24,8 @@ It's pretty simple:
 
 
 ## Changelog
+- v1.7 (9/20/22)
+  - Fixed baserules with conditions + not verb causing an error
 - v1.6 (8/15/22)
   - Fixed baserules stacking twice from one baserule 
 - v1.5 (7/1/22)

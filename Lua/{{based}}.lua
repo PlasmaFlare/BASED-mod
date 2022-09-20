@@ -1,4 +1,4 @@
-local version = "1.6"
+local version = "1.7"
 timedmessage(string.format("You are using the $0,2($0,3($2,2B$2,4A$5,4S$4,4E$3,0D$0,3)$0,2)$0,3 mod v%s!", version))
 
 -- Get this lua file's script path to be able to use loadfile()
@@ -195,7 +195,7 @@ local function update_syntax_state(state, parsing_data, tiletype, wordid, word, 
 
             if (state.stage == 0 and stage == 1) or (state.stage == 6 and stage == 1) then
                 -- handling prefix conditions
-                table.insert(parsing_data.conditions, {parsing_data.not_modifier..word})
+                table.insert(parsing_data.conditions, {parsing_data.not_modifier..word, {}})
             elseif (state.stage == 0 or state.stage == 1 or (state.stage == 4 and tiletype == 0 and not doingcond and not stage3reached)) and stage == 2 then
                 -- handling targets
                 table.insert(parsing_data.targets, parsing_data.not_modifier..word)
@@ -283,7 +283,6 @@ local function convert_sentence_to_rule(sentence)
         local word = string.lower(sent[wordid])
         local obj_ref = get_object_ref("text_"..word)
         local text_type = 0
-        print(word)
         if obj_ref ~= nil then
             text_type = obj_ref.type
         else
